@@ -14,7 +14,17 @@ function printMessage(username, badgeCount, points) {
 // Connect to the API URL (https://teamtreehouse.com/username.json)
 const request = https.get(`https://teamtreehouse.com/${username}.json`, response => {
     console.log(response.statusCode);
-    // Read the data
-    // Parse the data
+    // Read the data - without the toString() it will return the buffer
+    let body = "";
+    response.on('data', data => {
+        body += data.toString();
+    });
+    response.on('end', () => {
+        // Parse the data
+        console.log(body);
+        console.log(typeof body);
+    })
+    //there is an end event and there needs to be an end handler
+
     // Print the data
 });
